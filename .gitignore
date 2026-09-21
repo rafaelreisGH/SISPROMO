@@ -1,0 +1,36 @@
+# Dependências do Composer
+/vendor/
+
+# Arquivos de configuração sensíveis
+.env
+
+# Logs
+logs/
+*.log
+errors.log
+
+# Cache / arquivos temporários
+*.cache
+*.tmp
+*.bak
+
+# IDEs e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+ConexaoDB/conexao.php
+ConexaoDB/conexao_old.php
+
+Controllers/envia_email_senha.php
+Controllers/recuperar_senha.php
+Controllers/desbloquear_usuario.php
+.Documentacao/
+src/.geminiignore
+.agents/
+.gemini/

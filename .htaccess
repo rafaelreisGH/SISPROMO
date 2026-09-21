@@ -1,0 +1,12 @@
+# Força redirecionamento HTTP -> HTTPS em produção (quando SSL estiver ativo)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Header HSTS (HTTP Strict Transport Security)
+# Garante transporte estritamente seguro por 1 ano quando HTTPS estiver ativo
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
