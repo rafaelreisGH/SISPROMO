@@ -26,27 +26,27 @@ while ($resultado = $consulta->fetch(PDO::FETCH_ASSOC)) {
     $posto_grad = $resultado['posto_grad_usuario'];
 
     $tipo_bloqueio = ($senha_reset == 1) ? 'Novo Cadastro' : 'Esqueceu a Senha';
+    $badge_class = ($senha_reset == 1) ? 'bg-primary' : 'bg-warning text-dark';
 
     echo '<tr>'
-        . '<td align="center">'
-        . '<form action="../Controllers/desbloquear_usuario.php" method="POST">'
-        . '<div class="input-group">'
-        . '<button class="btn btn-info" type="submit" name="desbloquear" value="' . $aux_id . '">'
-        . '<em class="glyphicon glyphicon-send" title="Enviar chave de desbloqueio."></em>'
+        . '<td class="text-center">'
+        . '<form action="../Controllers/desbloquear_usuario.php" method="POST" class="d-inline">'
+        . '<button class="btn btn-sm btn-outline-danger" type="submit" name="desbloquear" value="' . $aux_id . '" title="Enviar chave de desbloqueio">'
+        . '<i class="bi bi-send-fill"></i>'
         . '</button>'
         . '</td>'
         . '<td>' . htmlspecialchars($aux_nome) . '</td>'
-        . '<td>' . htmlspecialchars($aux_email) . '</td>';
+        . '<td><span class="text-muted small">' . htmlspecialchars($aux_email) . '</span></td>';
 
     if ($senha_reset == 1) {
         // Novo cadastro — admin precisa selecionar perfil e posto
-        echo '<td><select class="form-select" name="perfil" required>'
-            . '<option selected disabled>Selecione uma opção</option>'
+        echo '<td><select class="form-select form-select-sm" name="perfil" required>'
+            . '<option selected disabled>Perfil</option>'
             . '<option value="1">Gestor</option>'
             . '<option value="2">Administrador</option>'
             . '<option value="3">Usuário</option>'
             . '</select></td>'
-            . '<td><select class="form-select" name="posto_grad" required>'
+            . '<td><select class="form-select form-select-sm" name="posto_grad" required>'
             . '<option disabled selected>Posto/Graduação</option>'
             . '<option value="CEL BM">Coronel</option>'
             . '<option value="TC BM">Tenente Coronel</option>'
@@ -69,6 +69,6 @@ while ($resultado = $consulta->fetch(PDO::FETCH_ASSOC)) {
     }
 
     echo '</form>'
-        . '<td><span class="label label-default">' . $tipo_bloqueio . '</span></td>'
+        . '<td><span class="badge ' . $badge_class . '">' . $tipo_bloqueio . '</span></td>'
         . '</tr>';
 }

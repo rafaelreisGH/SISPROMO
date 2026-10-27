@@ -116,20 +116,20 @@ function fetchFeed(dias) {
             const tbody = document.querySelector('#tabela-feed tbody');
             tbody.innerHTML = '';
             data.forEach((row, index) => {
-                let badge = 'default';
-                if (row.nivel === 'INFO') badge = 'info';
-                if (row.nivel === 'ERROR' || row.nivel === 'CRITICAL') badge = 'danger';
-                if (row.nivel === 'WARNING') badge = 'warning';
+                let badge = 'bg-secondary';
+                if (row.nivel === 'INFO') badge = 'bg-info text-dark';
+                if (row.nivel === 'ERROR' || row.nivel === 'CRITICAL') badge = 'bg-danger';
+                if (row.nivel === 'WARNING') badge = 'bg-warning text-dark';
                 
                 // botão para JSON
-                const btnJson = `<button class="btn btn-xs btn-default" onclick="mostrarContexto(${index})"><i class="glyphicon glyphicon-eye-open"></i> Ver Detalhes</button>`;
+                const btnJson = `<button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="mostrarContexto(${index})"><i class="bi bi-eye"></i> Detalhes</button>`;
 
                 tbody.innerHTML += `
                     <tr>
-                        <td>${row.data_log}</td>
-                        <td><span class="label label-${badge}">${row.nivel}</span></td>
+                        <td class="small text-muted">${row.data_log}</td>
+                        <td><span class="badge ${badge}">${row.nivel}</span></td>
                         <td>${row.mensagem}</td>
-                        <td>${btnJson}</td>
+                        <td class="text-center">${btnJson}</td>
                     </tr>
                 `;
             });
@@ -145,7 +145,11 @@ function mostrarContexto(index) {
         contextoObj = row.contexto;
     }
     document.getElementById('json-viewer').textContent = JSON.stringify(contextoObj, null, 4);
-    $('#modalContexto').modal('show');
+    
+    // Bootstrap 5 Modal nativo (sem depender de jQuery)
+    const modalEl = document.getElementById('modalContexto');
+    const modalInstancia = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modalInstancia.show();
 }
 
 function exportarCSV() {

@@ -50,8 +50,17 @@ include_once '../Controllers/verifica_permissoes.php'; //verifica o perfil do us
 
         <div class="col-md-12">
             <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link " aria-current="page" href="pagina_gestor.php">Home</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="../sair.php">Sair</a></li> -->
+                <?php
+                $homeRoute = 'pagina_usuario.php';
+                if (isset($_SESSION['nivel_de_acesso'])) {
+                    if ($_SESSION['nivel_de_acesso'] == '2') {
+                        $homeRoute = 'pagina_admin.php';
+                    } elseif ($_SESSION['nivel_de_acesso'] == '1') {
+                        $homeRoute = 'pagina_gestor.php';
+                    }
+                }
+                ?>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= $homeRoute ?>">Home</a></li>
             </ul>
             <hr>
         </div>
